@@ -1,4 +1,4 @@
-package fr.vours.smartproj;
+package fr.vours.smartproj
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -27,6 +27,7 @@ class KotlinSecurityConfiguration : WebSecurityConfigurerAdapter() {
                 authorize("/greetings/**", hasAuthority("ROLE_ADMIN"))
                 authorize("/**", permitAll)
             }
+            http?.csrf()?.disable()
         }
     }
 }
