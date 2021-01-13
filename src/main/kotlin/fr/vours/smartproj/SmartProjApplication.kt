@@ -26,7 +26,7 @@ class SmartProjApplication(private val projDAO: ProjDAO) : ApplicationRunner {
                 Proj("3","Regent", "Bell & Howell", "1933")
         )
 
-
+        println("added")
     }
 
 
