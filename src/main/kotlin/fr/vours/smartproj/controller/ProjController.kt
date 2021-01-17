@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*
 import fr.vours.smartproj.services.ProjService
 import java.util.*
 
-@CrossOrigin(origins = ["http://localhost:8081"])
+@CrossOrigin(origins = ["http://localhost:8081", "http://192.168.1.6:8081"])
 @RestController//declare this class as rest controller able to catch http request
 @RequestMapping("api/proj")//controller root path
 class ProjController (private val projService: ProjService) {//injects projService by constructor
