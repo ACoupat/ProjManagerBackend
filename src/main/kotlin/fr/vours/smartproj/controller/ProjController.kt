@@ -22,10 +22,10 @@ class ProjController (private val projService: ProjService) {//injects projServi
 //    @GetMapping("/byName/{regex}") fun getByName(@PathVariable regex:String):List<Proj> = projService.findByNameRegex(regex)
 
 
-    @PostMapping fun insert(@RequestBody proj: Proj): Proj = projService.insert(proj)
+    @PostMapping fun insert(): Proj = projService.insert(Proj("","","",""))
 
-
-    @PutMapping fun update(@RequestBody proj: Proj): Proj = projService.update(proj)
+    @PutMapping("/{id}")
+    fun update(@PathVariable(name="id") id : String, @RequestBody proj: Proj): Proj = projService.update(id, proj)
 
 
     @DeleteMapping("{isbn}")  fun deleteByIsbn(@PathVariable isbn: String): Optional<Proj> = projService.deleteById(isbn)

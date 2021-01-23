@@ -16,10 +16,10 @@ open class ProjService(val projDAO: ProjDAO):BasicCrud<String, Proj>{
 
     override fun insert(obj: Proj): Proj = projDAO.insert(obj)
 
-    override fun update(obj: Proj): Proj {
+    override fun update(id : String, obj: Proj): Proj {
 
-        return if(projDAO.existsById(obj.id)){//check if book exists because the save method will insert a record if does not exists
-            projDAO.save(obj)//re-insert author from db to avoid inconsistency
+        return if(projDAO.existsById(id)){//check if book exists because the save method will insert a record if does not exists
+            projDAO.save(obj)
         }else{
             throw object: Exception("Proj not found"){}
         }}
