@@ -10,23 +10,27 @@ import java.util.*
 @CrossOrigin(origins = ["http://localhost:8081", "http://192.168.1.6:8081"])
 @RestController//declare this class as rest controller able to catch http request
 @RequestMapping("api/proj")//controller root path
-class ProjController (private val projService: ProjService) {//injects projService by constructor
+class ProjController(private val projService: ProjService) {//injects projService by constructor
 
 
-    @GetMapping fun getAll(pageable: Pageable): Page<Proj> = projService.getAll(pageable)
+    @GetMapping
+    fun getAll(pageable: Pageable): Page<Proj> = projService.getAll(pageable)
 
 
-    @GetMapping("{isbn}") fun getById(@PathVariable isbn:String): Optional<Proj> = projService.getById(isbn)
+    @GetMapping("{isbn}")
+    fun getById(@PathVariable isbn: String): Optional<Proj> = projService.getById(isbn)
 
 
 //    @GetMapping("/byName/{regex}") fun getByName(@PathVariable regex:String):List<Proj> = projService.findByNameRegex(regex)
 
 
-    @PostMapping fun insert(): Proj = projService.insert(Proj("","","",""))
+    @PostMapping
+    fun insert(): Proj = projService.insert(Proj())
 
     @PutMapping("/{id}")
-    fun update(@PathVariable(name="id") id : String, @RequestBody proj: Proj): Proj = projService.update(id, proj)
+    fun update(@PathVariable(name = "id") id: String, @RequestBody proj: Proj): Proj = projService.update(id, proj)
 
 
-    @DeleteMapping("{isbn}")  fun deleteByIsbn(@PathVariable isbn: String): Optional<Proj> = projService.deleteById(isbn)
+    @DeleteMapping("{isbn}")
+    fun deleteByIsbn(@PathVariable isbn: String): Optional<Proj> = projService.deleteById(isbn)
 }

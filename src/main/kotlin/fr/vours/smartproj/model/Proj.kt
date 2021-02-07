@@ -6,7 +6,8 @@ import java.time.Year
 
 @Document(collection = "projs")
 data class Proj(
-        @Id val id: String,
-        val name: String,
-        val brand: String,
-        val manufacturingYear: String)
+        @Id val _id: String? = null,
+        var name: String = "",
+        var brand: String = "",
+        var manufacturingYear: String = "") {
+}
