@@ -1,4 +1,4 @@
-package fr.vours.smartproj.services
+package fr.vours.smartproj.services.proj
 
 import fr.vours.smartproj.model.Proj
 import fr.vours.smartproj.util.BasicCrud
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-open class ProjService(val projDAO: ProjDAO) : BasicCrud<String, Proj> {
+class ProjService(val projDAO: ProjDAO) : BasicCrud<String, Proj> {
     override fun getAll(pageable: Pageable): Page<Proj> = projDAO.findAll(pageable)
 
 

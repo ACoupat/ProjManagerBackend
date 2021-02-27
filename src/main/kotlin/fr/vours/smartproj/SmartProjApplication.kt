@@ -5,9 +5,7 @@ import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import fr.vours.smartproj.services.ProjDAO
-import fr.vours.smartproj.services.ProjService
-import java.time.Year
+import fr.vours.smartproj.services.proj.ProjDAO
 
 @SpringBootApplication()
 class SmartProjApplication(private val projDAO: ProjDAO) : ApplicationRunner {
