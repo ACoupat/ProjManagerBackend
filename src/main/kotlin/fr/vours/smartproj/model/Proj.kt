@@ -12,6 +12,9 @@ data class Proj(
     var brand: String = "",
     var manufacturingYear: String = "",
     @DBRef
-    var medias: List<Media> = ArrayList<Media>()
+    var medias: MutableList<Media> = ArrayList<Media>()
 ) {
+    public fun addMedia(media: Media) {
+        this.medias.add(media)
+    }
 }

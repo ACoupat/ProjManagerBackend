@@ -2,6 +2,7 @@ package fr.vours.smartproj.controller
 
 import fr.vours.smartproj.model.Media
 import fr.vours.smartproj.services.media.MediaService
+import fr.vours.smartproj.services.proj.ProjService
 import fr.vours.smartproj.services.proj.StorageService
 import org.apache.tomcat.util.http.fileupload.IOUtils
 import org.springframework.data.domain.Page
@@ -19,7 +20,11 @@ import java.io.FileNotFoundException
 @CrossOrigin(origins = ["*"])//"http://localhost:8081", "http://192.168.1.6:8081", "192.168.1.48:8081", "http://192.168.1.32"])
 @RestController//declare this class as rest controller able to catch http request
 @RequestMapping("media")//controller root path
-class MediaController(private val mediaService: MediaService, private val storageService: StorageService) {
+class MediaController(
+    private val mediaService: MediaService,
+    private val storageService: StorageService,
+    private val projService: ProjService
+) {
 
     @GetMapping
     fun getAll(pageable: Pageable): Page<Media> = mediaService.getAll(pageable)
@@ -28,9 +33,9 @@ class MediaController(private val mediaService: MediaService, private val storag
     fun getById(@PathVariable id: String): Optional<Media> = mediaService.getById(id)
 
     @GetMapping("downloadFile/{id}", produces = [MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE])
-    fun downloadFile(@PathVariable id:String) : ByteArray {
+    fun downloadFile(@PathVariable id: String): ByteArray {
         var fileName = this.getById(id)?.get()?.title;
-        if(fileName != null){
+        if (fileName != null) {
             var file = storageService.downloadFile(fileName);
             return file.readBytes();
         }
@@ -40,10 +45,14 @@ class MediaController(private val mediaService: MediaService, private val storag
     @PostMapping
     fun handleFileUpload(
         @RequestParam(required = true) fileName: String,
+        @RequestParam(required = true) projId: String,
         @RequestBody file: MultipartFile
     ) {
         storageService.store(file, fileName)
-        mediaService.insert(Media(null,fileName,""))
+        val media = mediaService.insert(Media(null, fileName, ""))
+        var proj = projService.getById(projId).get();
+        proj?.addMedia(media);
+        projService.update(projId, proj);
     }
 
 }
