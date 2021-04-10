@@ -11,6 +11,11 @@ data class Proj(
     var name: String = "",
     var brand: String = "",
     var manufacturingYear: String = "",
+    var acquisitionYear: String = "",
+    var acquisitionPrice: String = "",
+    var acquisitionPlace: String = "",
+    var notes: String = "",
+
     @DBRef
     var medias: MutableList<Media> = ArrayList<Media>()
 ) {

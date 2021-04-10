@@ -22,7 +22,7 @@ class MediaService(val mediaDAO: MediaDAO) : BasicCrud<String, Media> {
 
     override fun update(id: String, obj: Media): Media {
 
-        return if (mediaDAO.existsById(id)) {//check if book exists because the save method will insert a record if does not exists
+        return if (mediaDAO.existsById(id)) {
             mediaDAO.save(obj)
         } else {
             throw object : Exception("Media not found") {}
